@@ -1,0 +1,21 @@
+### noSQL Databases
+"noSQL" is an umbrella category for all non-relational databases. These databases are not necessarily ACID compliant, and their improved performance and scaling capacity is achieved after making several tradeoffs. NoSQL databases are widely different from each other, but have a few common characteristics - they are "schema-less", usually offer some means of scaling out (horizontal scaling) and usually open-source.  When evaluating noSQL databases, there is no "one size fits all" and choosing the database depends on the application's needs. The data model, level of consistency and availability, performance,functionality, community support, ease of scaling out, fault tolerance should be considered before selecting a noSQL database.
+
+#### CAP Theorem 
+Three problems that crop up in distributed systems are   
+* **Consistency** - all nodes in the distributed system have the same view of the data at any time, and data read back will be the same as the data written. Most noSQL stores usually offer "eventual consistency". That is, when some data is upserted, the change is eventually propagated to all nodes in the system and so eventually the data is consistent across all nodes. MongoDB and Cassandra allow for "tunable consistency" - by setting the "write concern", we can choose how many nodes the data will be written to, before a write is acknowledged. Here, we're making a tradeoff between write performance and consistency.   
+* **Availability** - This means the system has to be always on, clients sending a read/write request should get a response at once. 
+* **Partition Tolerance** - Partial failure of the network should not render the entire database inaccessible. After a temporary partition, the nodes should be able to re-sync.  
+
+![](http://i.stack.imgur.com/Hx8h0.png)
+
+The CAP theorem states that, in a distributed system, only two of these three concerns can be addressed, at best. A noSQL store that does not have any partition tolerance makes no sense, it should be able to function despite network partitions. So it really comes down to a question of availability or consistency. A completely consistent system would update all nodes for every insert/update/delete and during this period the system would not be available. A system that is "always on", would sometimes return stale data. CP systems should be used for cases where consistency is very important, AP systems are used when reducing latency is more important and the application can tolerate eventual consistency.
+
+#### Types of noSQL databases 
+NoSQL databases are primarily of four types – key-value stores, columnar databases, document oriented databases and graph databases. These differ primarily in their data model. There are other types - time-series databases(InfluxDB,Graphite)and datastores based on full-text search engines like elasticsearch(based on lucene).
+
+* **Key – Value Stores** : These are the simplest noSQL databases – data is stored as a key value pair. Knowing the indexed key can help us get the value out of the datastore. However, the value is opaque to the database, its a blob of data and any embedded fields cannot be queried. They don't support so many features as other noSQL stores, but this is also why they give better performance. Eg: Redis,Riak
+* **Columnar stores** : Data is arranged in a columnar format not a row format as in an rdbms.  Since the values of each column are stored together, this offers advantages like fast aggregations done over a column and better compression ratios (since similar type data are stored together). Eg: Cassandra,Hbase
+* **Document oriented database** : Data is stored as “documents”,each document is equivalent to an rdbms record.  However, these do not support joins and encourage storing data in a denormalized way. That is, they follow a "store what you query for" approach that eliminates the need for joins in most cases. The document data model is the most flexible and  Eg: MongoDB, Couchbase. 
+* **Graph databases** : These are for data whose relationsips can be modelled in the form of a graph, like a social network. They have a narrow range of applications and cannot be used a general purpose database. Eg: Titan,Neo4j
+
