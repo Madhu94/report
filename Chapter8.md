@@ -1,0 +1,6 @@
+### Pre-processing
+#### Batch Jobs
+Queries that involve processing millions of records and take several seconds to complete can be set up as batch jobs if they are known in advance. A separate collection can be used for maintaining the state. For this, MongoDB's bulk unordered upsert function can be used or, since the results are likely to be queried together, they can be stored as one document. In this case, maintaining state of the aggregation within that single document might be best.
+
+#### MongoDB's Oplog
+MongoDB's oplog is a capped collection in the local database on each shard. Capped collections can have a tailable cursor. A tailable cursor does not close when it reaches the end of the data, but can be polled later to get back any data inserted in the meantime. Using a tailable cursor and querying the oplog at regular intervals. This interval should be less than the oplog time - the time taken for the oplog to fill up. By tailing the oplog and parsing the results we can build a system that updates in real time, the results for certain queries.
