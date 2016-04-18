@@ -8,16 +8,16 @@ Testing on real data was done to make certain if InfluxDB performed as well. It 
 
 
 Python Scripts to load random data and test :
-1) mongo_writer.py
-2) sql_writer.py
-3) mongo_tests.py
-4) sql_tests.py
-5) influx_writer.py
-6) influx_tests.py
-7) log_generator.py
+* mongo_writer.py
+* sql_writer.py
+* mongo_tests.py
+* sql_tests.py
+* influx_writer.py
+* influx_tests.py
+* log_generator.py
 
 Python scripts to load real data 
-1) get_usage_data.py
-2) mongo_usage_data.py
-3) ??
+* get_usage_data.py
+* mongo_usage_data.py
+* ??
 
