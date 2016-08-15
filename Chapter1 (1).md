@@ -9,7 +9,7 @@ Usage Tracking gives developers an insight into how an application is being used
 ### Block Diagram
 ![](http://s3.postimg.org/5suef4nnn/block_diagram_1.png)
 
-Web Applications are the sources of the usage data and these are stored in MongoDB through a writer API. This data can be queried through a [python API]() or [javaScript API](). For queries that are run frequently over large datasets, pre-computation could avoid processing the same records multiple times and improve response time.(Support for incremental aggregation is not yet available)
+Web Applications are the sources of the usage data and these are stored in MongoDB through a writer API. This data can be queried through a python API or javaScript API. For queries that are run frequently over large datasets, pre-computation could avoid processing the same records multiple times and improve response time.
 
 
 ## Use Cases : 
